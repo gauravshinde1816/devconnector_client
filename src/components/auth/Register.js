@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
+import {withRouter} from "react-router-dom"
 import { Link } from "react-router-dom";
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register , history}) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,7 +24,7 @@ const Register = ({ setAlert, register }) => {
       setAlert("Password do not match", "danger");
     } else {
       // console.log(formData);
-      register({ name, password, email });
+      register({ name, password, email } , history);
       // console.log("SUCCESS");
     }
   };
@@ -86,4 +86,4 @@ const Register = ({ setAlert, register }) => {
   );
 };
 
-export default connect(null, { setAlert, register })(Register);
+export default connect(null, { setAlert, register })(withRouter(Register));

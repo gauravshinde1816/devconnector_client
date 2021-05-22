@@ -32,7 +32,10 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const register = ({ name, email, password }) => async (dispatch) => {
+//register new user
+export const register = ({ name, email, password }, history) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
@@ -49,6 +52,13 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(loadUser());
+    history.push("/dashboard");
+    dispatch(
+      setAlert(
+        "Welcome to Devconnector, Kindly create your profile before proceeding furthur",
+        "success"
+      )
+    );
   } catch (error) {
     // console.log(error.response.data);
     const errors = error.response.data.error;
