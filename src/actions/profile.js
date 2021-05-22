@@ -9,11 +9,11 @@ import {
 } from "../actions/types";
 import axios from "axios";
 import { setAlert } from "./alert";
-
+import { baseURL } from "./baseURL";
 //get current profile
 export const getProfile = () => async (dispatch) => {
   try {
-    const res = await axios.get("api/profiles/me");
+    const res = await axios.get(`${baseURL}/api/profiles/me`);
     // console.log(res.data);
     dispatch({
       type: GET_PROFILE,
@@ -33,9 +33,7 @@ export const getProfile = () => async (dispatch) => {
 //get all profiles
 export const getProfiles = () => async (dispatch) => {
   try {
-    const res = await axios.get(
-      "https://devconnectorlite.herokuapp.com/api/profiles/"
-    );
+    const res = await axios.get(`${baseURL}/api/profiles/`);
     // console.log(res.data);
     dispatch({
       type: GET_PROFILES,
@@ -56,7 +54,7 @@ export const getProfiles = () => async (dispatch) => {
 export const getProfileByID = (userID) => async (dispatch) => {
   try {
     // console.log(userID);
-    const res = await axios.get(`api/profiles/user/${userID}`);
+    const res = await axios.get(`${baseURL}/api/profiles/user/${userID}`);
     // console.log(res.data);
     dispatch({
       type: GET_PROFILE,
@@ -76,9 +74,7 @@ export const getProfileByID = (userID) => async (dispatch) => {
 //get github repos
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `https://devconnectorlite.herokuapp.com/api/profiles/github/${username}`
-    );
+    const res = await axios.get(`${baseURL}/api/profiles/github/${username}`);
     dispatch({
       type: GET_REPOS,
       payload: res.data,
@@ -105,7 +101,7 @@ export const createProfile = (formData, history, edit = false) => async (
         "Content-Type": "application/json",
       },
     };
-    const res = await axios.post("/api/profiles", formData, config);
+    const res = await axios.post(`${baseURL}/api/profiles`, formData, config);
 
     dispatch({
       type: GET_PROFILE,
@@ -140,7 +136,11 @@ export const addExperience = (formData, history) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const res = await axios.put("/api/profiles/experience", formData, config);
+    const res = await axios.put(
+      `${baseURL}/api/profiles/experience`,
+      formData,
+      config
+    );
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -174,7 +174,11 @@ export const addEducation = (formData, history) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const res = await axios.put("/api/profiles/education", formData, config);
+    const res = await axios.put(
+      `${baseURL}/api/profiles/education`,
+      formData,
+      config
+    );
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -202,7 +206,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
 //delete Experience
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/profiles/experience/${id}`);
+    const res = await axios.delete(`${baseURL}/api/profiles/experience/${id}`);
     console.log(res.data);
     dispatch({
       type: UPDATE_PROFILE,
@@ -223,7 +227,7 @@ export const deleteExperience = (id) => async (dispatch) => {
 //delete Education
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/profiles/education/${id}`);
+    const res = await axios.delete(`${baseURL}/api/profiles/education/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -245,7 +249,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
   if (window.confirm("Are you sure , this can't be undone")) {
     try {
-      const res = await axios.delete("/api/profiles");
+      const res = await axios.delete(`${baseURL}/api/profiles`);
       dispatch({
         type: ACCOUNT_DELETED,
       });

@@ -9,6 +9,7 @@ import ProfileEducation from "./ProfileEducation";
 import GithubRepos from "./GithubRepos";
 const Profile = ({ profile: { profile }, auth, match, getProfileByID }) => {
   useEffect(() => {
+    console.log(match.params.id);
     getProfileByID(match.params.id);
   }, [getProfileByID]);
   return (
