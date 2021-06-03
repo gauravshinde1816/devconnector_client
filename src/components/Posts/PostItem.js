@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
@@ -11,6 +11,18 @@ const PostItem = ({
   deletePost,
   showActions,
 }) => {
+  const [liked, setLiked] = useState(false);
+  // const [disliked, setDisliked] = useState(false);
+
+  const onAddClick = () => {
+    setLiked(true);
+    addLike(_id);
+  };
+
+  const onAddDislike = () => {
+    setLiked(false);
+    removeLike(_id);
+  };
   return (
     <div className="post bg-white p-1 my-1">
       <div>
@@ -33,15 +45,19 @@ const PostItem = ({
             <button
               type="button"
               className="btn btn-light"
-              onClick={() => addLike(_id)}
+              onClick={onAddClick}
             >
-              <i className="fas fa-thumbs-up"></i>{" "}
+              <i
+                className={`fas fa-thumbs-up ${
+                  liked ? "text-danger" : "text-light"
+                }`}
+              ></i>{" "}
               {likes.length > 0 && <span>{likes.length}</span>}
             </button>
             <button
               type="button"
               className="btn btn-light"
-              onClick={() => removeLike(_id)}
+              onClick={onAddDislike}
             >
               <i className="fas fa-thumbs-down"></i>
             </button>

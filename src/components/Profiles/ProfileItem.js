@@ -8,6 +8,7 @@ const ProfileItem = ({
     company,
     skills,
   },
+  id,
 }) => {
   return (
     <div className="bg-light profile">

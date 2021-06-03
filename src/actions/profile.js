@@ -6,7 +6,7 @@ import {
   ACCOUNT_DELETED,
   GET_PROFILES,
   GET_REPOS,
-} from "../actions/types";
+} from "./types";
 import axios from "axios";
 import { setAlert } from "./alert";
 import { baseURL } from "./baseURL";
